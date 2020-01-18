@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GistTottarrow</string>
+    <string name="search_menu_text">Search</string>
+    <string name="there_is_no_results_text">There is no results. \nPlease search from the menu at the top</string>
+</resources>
