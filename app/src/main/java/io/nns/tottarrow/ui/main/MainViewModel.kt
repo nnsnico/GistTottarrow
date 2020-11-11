@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
+import arrow.core.NonEmptyList
 import io.nns.tottarrow.domain.response.Gist
 import io.nns.tottarrow.domain.vo.GistError
 import io.nns.tottarrow.usecase.GithubCreateUseCase
@@ -17,7 +18,10 @@ class MainViewModel(private val githubUseCase: GithubCreateUseCase) : ViewModel(
     fun searchInUser(q: String) =
         viewModelScope.launch {
             run {
-                withContext(Dispatchers.IO) { gists.postValue(githubUseCase.createGist(q))  }
+                withContext(Dispatchers.IO) {
+                    val gistList = githubUseCase.createGist(q).map { it.toList() }
+                    gists.postValue(gistList)
+                }
             }
         }
 }
